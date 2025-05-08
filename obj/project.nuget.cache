@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "m811nWt55cE=",
+  "dgSpecHash": "4NuKfyioCPU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\porad\\Documents\\C# projekty\\Backpropagation\\Backpropagation\\Backpropagation.csproj",
+  "projectFilePath": "C:\\Users\\porad\\Documents\\C# projekty\\Backpropagation\\Backpropagation.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\porad\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.14\\microsoft.netcore.app.ref.8.0.14.nupkg.sha512",
     "C:\\Users\\porad\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.14\\microsoft.windowsdesktop.app.ref.8.0.14.nupkg.sha512",

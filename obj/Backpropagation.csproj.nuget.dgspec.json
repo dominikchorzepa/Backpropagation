@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\porad\\Documents\\C# projekty\\Backpropagation\\Backpropagation\\Backpropagation.csproj": {}
+    "C:\\Users\\porad\\Documents\\C# projekty\\Backpropagation\\Backpropagation.csproj": {}
   },
   "projects": {
-    "C:\\Users\\porad\\Documents\\C# projekty\\Backpropagation\\Backpropagation\\Backpropagation.csproj": {
+    "C:\\Users\\porad\\Documents\\C# projekty\\Backpropagation\\Backpropagation.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\porad\\Documents\\C# projekty\\Backpropagation\\Backpropagation\\Backpropagation.csproj",
+        "projectUniqueName": "C:\\Users\\porad\\Documents\\C# projekty\\Backpropagation\\Backpropagation.csproj",
         "projectName": "Backpropagation",
-        "projectPath": "C:\\Users\\porad\\Documents\\C# projekty\\Backpropagation\\Backpropagation\\Backpropagation.csproj",
+        "projectPath": "C:\\Users\\porad\\Documents\\C# projekty\\Backpropagation\\Backpropagation.csproj",
         "packagesPath": "C:\\Users\\porad\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\porad\\Documents\\C# projekty\\Backpropagation\\Backpropagation\\obj\\",
+        "outputPath": "C:\\Users\\porad\\Documents\\C# projekty\\Backpropagation\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

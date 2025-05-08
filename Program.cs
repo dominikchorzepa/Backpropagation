@@ -1,4 +1,4 @@
-﻿namespace Backpropagation
+﻿namespace Neural_network
 {
     internal class Program
     {
@@ -22,46 +22,105 @@
                 (new int[] { 1, 1 }, 0),
             };
 
-            List<double> wagi = new List<double>();
+            List<double> wagi = new List<double> ();
 
             for (int i = 0; i < liczbaWag; i++)
             {
                 double waga = rnd.NextDouble() * ZD + ZDMin;
-                Console.WriteLine("Waga " + i + ": " + waga);
                 wagi.Add(waga);
             }
 
-            foreach (double waga in wagi)
+            for (int epoka = 0; epoka < liczbaEpok; epoka++)
             {
-                Console.WriteLine(waga);
+                foreach (var (wejscia, wyjscia) in daneSieci)
+                {
+                    double[] warstwaUkryta = new double[] {
+                        Sigmoid(1 * wagi[0] + wejscia[0] * wagi[1] + wejscia[1] * wagi[2]),
+                        Sigmoid(1 * wagi[3] + wejscia[0] * wagi[4] + wejscia[1] * wagi[5]),
+                    };
+
+                    double warstwaKoncowa = Sigmoid(1 * wagi[6] + warstwaUkryta[0] * wagi[7] + warstwaUkryta[1] * wagi[8]);
+                   
+                    double blad = wyjscia - warstwaKoncowa;
+                   
+                    double korektaWyjscia = wspUczenia * blad;
+                  
+                    double korektaWarstwyKoncowej = korektaWyjscia * paramAktywacji * warstwaKoncowa * (1 - warstwaKoncowa);
+                 
+                    List<double> korektyWagWarstwyUkrytej = new List<double>();
+
+                    for (int i = 0; i < 2; i++)
+                    {
+                        if (i == 0)
+                        {
+                            double korektaWagiBias = korektaWarstwyKoncowej * 1;
+                            korektyWagWarstwyUkrytej.Add(korektaWagiBias);
+                        }
+                        double korektaWagi = korektaWarstwyKoncowej * warstwaUkryta[i];
+                        korektyWagWarstwyUkrytej.Add(korektaWagi);
+                    }
+
+                    List<double> korektyWejscWarstwyUkrytej = new List<double>();
+
+                    for (int i = 0; i < warstwaUkryta.Length; i++)
+                    {
+                        double korektaWejscia = korektaWarstwyKoncowej * wagi[7 + i];
+                        korektyWejscWarstwyUkrytej.Add(korektaWejscia);
+                    }
+
+                    List<double> korektyWarstwyPierwszej = new List<double>();
+
+                    for (int i = 0; i < warstwaUkryta.Length; i++)
+                    {
+                        double korektaWarstwyPierwszej = korektyWejscWarstwyUkrytej[i] * paramAktywacji *
+                            warstwaUkryta[i] * (1 - warstwaUkryta[i]);
+                        korektyWarstwyPierwszej.Add(korektaWarstwyPierwszej);
+                    }
+
+                    List<double> korektyWagWarstwyPierwszej = new List<double>();
+
+                    for (int i = 0; i < 2; i++)
+                    {
+                        double korektaWagiBias = korektyWarstwyPierwszej[i] * 1;
+                        double korektaWagiWejscie1 = korektyWarstwyPierwszej[i] * wejscia[0];
+                        double korektaWagiWejscie2 = korektyWarstwyPierwszej[i] * wejscia[1];
+                        korektyWagWarstwyPierwszej.Add(korektaWagiBias);
+                        korektyWagWarstwyPierwszej.Add(korektaWagiWejscie1);
+                        korektyWagWarstwyPierwszej.Add(korektaWagiWejscie2);
+                    }
+
+                    for (int i = 0; i < 2; i++)
+                    {
+                        wagi[i * 3 + 0] += korektyWagWarstwyPierwszej[i * 3 + 0];
+                        wagi[i * 3 + 1] += korektyWagWarstwyPierwszej[i * 3 + 1];
+                        wagi[i * 3 + 2] += korektyWagWarstwyPierwszej[i * 3 + 2];
+                    }
+
+                    wagi[6] += korektyWagWarstwyUkrytej[0];
+                    wagi[7] += korektyWagWarstwyUkrytej[1];
+                    wagi[8] += korektyWagWarstwyUkrytej[2];
+                }
+
+                for (int i = daneSieci.Count - 1; i > 0; i--)
+                {
+                    int j = rnd.Next(i + 1);
+                    (daneSieci[i], daneSieci[j]) = (daneSieci[j], daneSieci[i]);
+                }
             }
+
+            Console.WriteLine("\n--- Wyjście sieci po liczbie " + liczbaEpok + " epok ---");
 
             foreach (var (wejscia, wyjscia) in daneSieci)
             {
-                Console.WriteLine("Wejscia: " + wejscia[0] + wejscia[1] + ", wyjścia: " + wyjscia);
-
-                double[] warstwaUkryta = new double[] {
-                    Sigmoid(wejscia[0] * wagi[0] + wejscia[1] * wagi[1] + 1 * wagi[2]),
-                    Sigmoid(wejscia[0] * wagi[3] + wejscia[1] * wagi[4] + 1 * wagi[5]),
+                double[] warstwaUkryta = new double[]
+                {
+                    Sigmoid(1 * wagi[0] + wejscia[0] * wagi[1] + wejscia[1] * wagi[2]),
+                    Sigmoid(1 * wagi[3] + wejscia[0] * wagi[4] + wejscia[1] * wagi[5]),
                 };
 
-                for (int i = 0; i < warstwaUkryta.Length; i++)
-                {
-                    Console.WriteLine("Ukryte: " + warstwaUkryta[i]);
-                }
-
-                double warstwaKoncowa = Sigmoid(warstwaUkryta[0] * wagi[6] + warstwaUkryta[1] * wagi[7] + 1 * wagi[8]);
-                Console.WriteLine("Końcowa: " + warstwaKoncowa);
-
-                double blad = wyjscia - warstwaKoncowa;
-                Console.WriteLine("Błąd: " + blad);
-
-                double korekta = wspUczenia * (wyjscia - warstwaKoncowa);
-                Console.WriteLine("Korekta: " + korekta);
-
-
+                double warstwaKoncowa = Sigmoid(1 * wagi[6] + warstwaUkryta[0] * wagi[7] + warstwaUkryta[1] * wagi[8]);
+                Console.WriteLine("Wejścia: " + wejscia[0] + " " + wejscia[1] + ", Wyjście sieci: " + Math.Round(warstwaKoncowa, 4) + " " + "(oczekiwane: " + wyjscia + ")");
             }
-
         }
 
         static double Sigmoid(double x)
