@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Backpropagation")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3d5d439d2ab783901164c2e3261c50cf016847c5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+def1df136e3f3cd03344d8af495d5752bb65a8e0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Backpropagation")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Backpropagation")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

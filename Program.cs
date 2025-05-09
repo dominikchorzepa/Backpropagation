@@ -5,7 +5,7 @@
         static void Main(string[] args)
         {
             int paramAktywacji = 1;
-            double wspUczenia = 0.3;
+            double wspUczenia = 0.1;
             double ZDMin = -5;
             double ZDMax = 5;
             double ZD = ZDMax - ZDMin;
@@ -22,7 +22,7 @@
                 (new int[] { 1, 1 }, 0),
             };
 
-            List<double> wagi = new List<double> ();
+            List<double> wagi = new List<double>();
 
             for (int i = 0; i < liczbaWag; i++)
             {
@@ -30,23 +30,50 @@
                 wagi.Add(waga);
             }
 
+            Console.WriteLine("Wybierz tryb działania: ");
+            Console.WriteLine("1 - trening");
+            Console.WriteLine("2 - wejście -> wyjście");
+
+            string wybor = Console.ReadLine();
+
+            if (wybor == "2")
+            {
+                Console.WriteLine("Podaj dane wejściowe (dwa bity, np. 0 1):");
+                string[] wejscieStr = Console.ReadLine().Split(' ');
+                List<int> wejscia = new List<int>
+                {
+                    int.Parse(wejscieStr[0]),
+                    int.Parse(wejscieStr[1])
+                };
+
+                double wynik = ObliczWyjscie(wejscia, wagi, paramAktywacji);
+                Console.WriteLine("Wejścia: " + wejscia[0] + " " + wejscia[1] + ", Wyjście sieci: " + Math.Round(wynik, 4));
+                return;
+            }
+
             for (int epoka = 0; epoka < liczbaEpok; epoka++)
             {
+                if (epoka % 1000 == 0 || epoka == liczbaEpok - 1)
+                {
+                    Console.WriteLine("\nEpoka " + (epoka + 1) + " - Błąd przed: ");
+                    ObliczBlad(daneSieci, wagi, paramAktywacji);
+                }
+
                 foreach (var (wejscia, wyjscia) in daneSieci)
                 {
                     double[] warstwaUkryta = new double[] {
-                        Sigmoid(1 * wagi[0] + wejscia[0] * wagi[1] + wejscia[1] * wagi[2]),
-                        Sigmoid(1 * wagi[3] + wejscia[0] * wagi[4] + wejscia[1] * wagi[5]),
+                        Sigmoid(1 * wagi[0] + wejscia[0] * wagi[1] + wejscia[1] * wagi[2], paramAktywacji),
+                        Sigmoid(1 * wagi[3] + wejscia[0] * wagi[4] + wejscia[1] * wagi[5], paramAktywacji),
                     };
 
-                    double warstwaKoncowa = Sigmoid(1 * wagi[6] + warstwaUkryta[0] * wagi[7] + warstwaUkryta[1] * wagi[8]);
-                   
+                    double warstwaKoncowa = Sigmoid(1 * wagi[6] + warstwaUkryta[0] * wagi[7] + warstwaUkryta[1] * wagi[8], paramAktywacji);
+
                     double blad = wyjscia - warstwaKoncowa;
-                   
+
                     double korektaWyjscia = wspUczenia * blad;
-                  
+
                     double korektaWarstwyKoncowej = korektaWyjscia * paramAktywacji * warstwaKoncowa * (1 - warstwaKoncowa);
-                 
+
                     List<double> korektyWagWarstwyUkrytej = new List<double>();
 
                     for (int i = 0; i < 2; i++)
@@ -101,6 +128,12 @@
                     wagi[8] += korektyWagWarstwyUkrytej[2];
                 }
 
+                if (epoka % 1000 == 0 || epoka == liczbaEpok - 1)
+                {
+                    Console.WriteLine("\nEpoka " + (epoka + 1) + " - Błąd po: ");
+                    ObliczBlad(daneSieci, wagi, paramAktywacji);
+                }
+
                 for (int i = daneSieci.Count - 1; i > 0; i--)
                 {
                     int j = rnd.Next(i + 1);
@@ -114,18 +147,47 @@
             {
                 double[] warstwaUkryta = new double[]
                 {
-                    Sigmoid(1 * wagi[0] + wejscia[0] * wagi[1] + wejscia[1] * wagi[2]),
-                    Sigmoid(1 * wagi[3] + wejscia[0] * wagi[4] + wejscia[1] * wagi[5]),
+                    Sigmoid(1 * wagi[0] + wejscia[0] * wagi[1] + wejscia[1] * wagi[2], paramAktywacji),
+                    Sigmoid(1 * wagi[3] + wejscia[0] * wagi[4] + wejscia[1] * wagi[5], paramAktywacji),
                 };
 
-                double warstwaKoncowa = Sigmoid(1 * wagi[6] + warstwaUkryta[0] * wagi[7] + warstwaUkryta[1] * wagi[8]);
+                double warstwaKoncowa = Sigmoid(1 * wagi[6] + warstwaUkryta[0] * wagi[7] + warstwaUkryta[1] * wagi[8], paramAktywacji);
                 Console.WriteLine("Wejścia: " + wejscia[0] + " " + wejscia[1] + ", Wyjście sieci: " + Math.Round(warstwaKoncowa, 4) + " " + "(oczekiwane: " + wyjscia + ")");
             }
         }
 
-        static double Sigmoid(double x)
+        static double Sigmoid(double x, double beta)
         {
-            return 1 / (1 + Math.Exp(-x));
+            return 1 / (1 + Math.Exp(-beta * x));
+        }
+
+        static double ObliczWyjscie(List<int> wejscia, List<double> wagi, double paramAktywacji)
+        {
+            double[] warstwaUkryta = new double[]
+            {
+                Sigmoid(1 * wagi[0] + wejscia[0] * wagi[1] + wejscia[1] * wagi[2], paramAktywacji),
+                Sigmoid(1 * wagi[3] + wejscia[0] * wagi[4] + wejscia[1] * wagi[5], paramAktywacji)
+            };
+
+            double warstwaKoncowa = Sigmoid(1 * wagi[6] + warstwaUkryta[0] * wagi[7] + warstwaUkryta[1] * wagi[8], paramAktywacji);
+            return warstwaKoncowa;
+        }
+
+        static void ObliczBlad(List<(int[], int)> daneSieci, List<double> wagi, double paramAktywacji)
+        {
+            foreach (var (wejscia, wyjscia) in daneSieci)
+            {
+                double[] warstwaUkryta = new double[]
+                {
+                    Sigmoid(1 * wagi[0] + wejscia[0] * wagi[1] + wejscia[1] * wagi[2], paramAktywacji),
+                    Sigmoid(1 * wagi[3] + wejscia[0] * wagi[4] + wejscia[1] * wagi[5], paramAktywacji),
+                };
+
+                double wyjscieSieci = Sigmoid(1 * wagi[6] + warstwaUkryta[0] * wagi[7] + warstwaUkryta[1] * wagi[8], paramAktywacji);
+                double modulBledu = Math.Abs(wyjscia - wyjscieSieci);
+
+                Console.WriteLine(modulBledu);
+            }
         }
     }
 }
