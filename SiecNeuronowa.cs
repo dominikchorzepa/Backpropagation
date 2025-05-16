@@ -35,5 +35,18 @@ namespace Neural_network
             }
             return wyjscia;
         }
+
+        void ObliczKorekteWyjscia(List<double> wyjsciaOczekiwane)
+        {
+            var warstwaWyjsciowa = Warstwy[Warstwy.Count - 1];
+
+            for (int i = 0; i < warstwaWyjsciowa.Neurony.Count; i++)
+                {
+                    var neuron = warstwaWyjsciowa.Neurony[i];
+                    double blad = wyjsciaOczekiwane[i] - neuron.wyjscie;
+                    double korekta = WspUczenia * blad;
+                    neuron.korekta = korekta;
+                }
+        }
     }
 }
