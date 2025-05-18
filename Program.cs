@@ -28,6 +28,25 @@
                 (new List<double> {1, 1, 1 }, new List<double> { 1, 1 }),
             };
 
+            for (int epoka = 0; epoka < liczbaEpok; epoka++)
+            {
+                for (int i = daneSieci.Count - 1; i > 0; i--)
+                {
+                    int j = rnd.Next(i + 1);
+                    (daneSieci[i], daneSieci[j]) = (daneSieci[j], daneSieci[i]);
+                }
+
+                foreach (var (wejscia, wyjsciaOczekiwane) in daneSieci)
+                {
+                    siec.Trenowanie(wejscia, wyjsciaOczekiwane);
+                }
+
+                if (epoka % 1000 == 0 || epoka == liczbaEpok - 1)
+                {
+                    Console.WriteLine("\nEpoka " + (epoka + 1) + " - Błąd po: " + siec.ObliczBlad(daneSieci));
+                }
+            }
+
             Console.WriteLine("\n--- Wyjście sieci po liczbie " + liczbaEpok + " epok ---");
 
             foreach(var (wejscia, wyjsciaOczekiwane) in daneSieci)
