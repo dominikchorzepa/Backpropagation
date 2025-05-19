@@ -9,7 +9,8 @@ namespace Neural_network_form
         {
             InitializeComponent();
 
-            
+            Application.ThreadException += new ThreadExceptionEventHandler(GlobalnyWyjatek);
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalnyWyjatekDomeny);
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -155,6 +156,19 @@ namespace Neural_network_form
 
                 listBoxWyniki.Items.Add("Wej�cia: " + tekstWejscia + ", Wyj�cie sieci: " + tekstWyjscia + " (oczekiwane: " + tekstOczekiwane + ")");
             }
+        }
+
+        private void GlobalnyWyjatek(object sender, ThreadExceptionEventArgs e)
+        {
+            MessageBox.Show("Wyst�pi� nieoczekiwany b��d:\n" + e.Exception.Message, "B��d",
+        MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void GlobalnyWyjatekDomeny(object sender, UnhandledExceptionEventArgs e)
+        {
+            Exception ex = e.ExceptionObject as Exception;
+            MessageBox.Show("Wyst�pi� krytyczny b��d:\n" + ex?.Message, "B��d",
+            MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
