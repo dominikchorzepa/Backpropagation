@@ -1,9 +1,16 @@
-﻿namespace Neural_network
+﻿using Neural_network_form;
+
+namespace Neural_network
 {
     internal class Program
     {
+        [STAThread]
         static void Main(string[] args)
         {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new FormSiecNeuronowa());
+
             int paramAktywacji = 1;
             double wspUczenia = 0.1;
             double ZDMin = -5;
@@ -49,10 +56,10 @@
 
             Console.WriteLine("\n--- Wyjście sieci po liczbie " + liczbaEpok + " epok ---");
 
-            foreach(var (wejscia, wyjsciaOczekiwane) in daneSieci)
+            foreach (var (wejscia, wyjsciaOczekiwane) in daneSieci)
             {
                 var wyjscie = siec.LiczenieWstepne(wejscia);
-                Console.WriteLine("Wejścia: " + wejscia[0] + " " + wejscia[1] + " " + wejscia[2] + ", Wyjście sieci: " + Math.Round(wyjscie[0], 4) + " " + Math.Round(wyjscie[1], 4) + " (oczekiwane: " + wyjsciaOczekiwane[0] + ", " + wyjsciaOczekiwane[1] +")");
+                Console.WriteLine("Wejścia: " + wejscia[0] + " " + wejscia[1] + " " + wejscia[2] + ", Wyjście sieci: " + Math.Round(wyjscie[0], 4) + " " + Math.Round(wyjscie[1], 4) + " (oczekiwane: " + wyjsciaOczekiwane[0] + ", " + wyjsciaOczekiwane[1] + ")");
             }
         }
     }

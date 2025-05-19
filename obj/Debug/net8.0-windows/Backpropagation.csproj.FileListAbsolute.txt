@@ -1,0 +1,17 @@
+C:\Users\porad\Documents\C# projekty\Backpropagation\bin\Debug\net8.0-windows\Backpropagation.exe
+C:\Users\porad\Documents\C# projekty\Backpropagation\bin\Debug\net8.0-windows\Backpropagation.deps.json
+C:\Users\porad\Documents\C# projekty\Backpropagation\bin\Debug\net8.0-windows\Backpropagation.runtimeconfig.json
+C:\Users\porad\Documents\C# projekty\Backpropagation\bin\Debug\net8.0-windows\Backpropagation.dll
+C:\Users\porad\Documents\C# projekty\Backpropagation\bin\Debug\net8.0-windows\Backpropagation.pdb
+C:\Users\porad\Documents\C# projekty\Backpropagation\obj\Debug\net8.0-windows\Neural_network_form.FormSiecNeuronowa.resources
+C:\Users\porad\Documents\C# projekty\Backpropagation\obj\Debug\net8.0-windows\Backpropagation.csproj.GenerateResource.cache
+C:\Users\porad\Documents\C# projekty\Backpropagation\obj\Debug\net8.0-windows\Backpropagation.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\porad\Documents\C# projekty\Backpropagation\obj\Debug\net8.0-windows\Backpropagation.AssemblyInfoInputs.cache
+C:\Users\porad\Documents\C# projekty\Backpropagation\obj\Debug\net8.0-windows\Backpropagation.AssemblyInfo.cs
+C:\Users\porad\Documents\C# projekty\Backpropagation\obj\Debug\net8.0-windows\Backpropagation.csproj.CoreCompileInputs.cache
+C:\Users\porad\Documents\C# projekty\Backpropagation\obj\Debug\net8.0-windows\Backpropagation.sourcelink.json
+C:\Users\porad\Documents\C# projekty\Backpropagation\obj\Debug\net8.0-windows\Backpropagation.dll
+C:\Users\porad\Documents\C# projekty\Backpropagation\obj\Debug\net8.0-windows\refint\Backpropagation.dll
+C:\Users\porad\Documents\C# projekty\Backpropagation\obj\Debug\net8.0-windows\Backpropagation.pdb
+C:\Users\porad\Documents\C# projekty\Backpropagation\obj\Debug\net8.0-windows\Backpropagation.genruntimeconfig.cache
+C:\Users\porad\Documents\C# projekty\Backpropagation\obj\Debug\net8.0-windows\ref\Backpropagation.dll
