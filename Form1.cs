@@ -24,7 +24,7 @@ namespace Neural_network_form
 
             if (!int.TryParse(textBoxLiczbaEpok.Text, out int liczbaEpok))
             {
-                MessageBox.Show("Nieprawid�owa liczba epok!", "B��d", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Nieprawidlowa liczba epok!", "Blad", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -32,25 +32,25 @@ namespace Neural_network_form
 
             if (!double.TryParse(textBoxWspUczenia.Text, out double wspUczenia))
             {
-                MessageBox.Show("Nieprawid�owy wsp�czynnik uczenia!", "B��d", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Nieprawidlowy wspolczynnik uczenia!", "Blad", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (!double.TryParse(textBoxParamBeta.Text, out double paramAktywacji))
             {
-                MessageBox.Show("Nieprawid�owy parametr Beta!", "B��d", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Nieprawidlowy parametr Beta!", "Blad", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (!double.TryParse(textBoxZDMin.Text, out double ZDMin))
             {
-                MessageBox.Show("Nieprawid�owy parametr ZDMin!", "B��d", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Nieprawidlowy parametr ZDMin!", "Blad", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (!double.TryParse(textBoxZDMax.Text, out double ZDMax))
             {
-                MessageBox.Show("Nieprawid�owy parametr ZDMax!", "B��d", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Nieprawidlowy parametr ZDMax!", "Blad", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             Random rnd = new Random();
@@ -64,7 +64,7 @@ namespace Neural_network_form
                 }
                 else
                 {
-                    MessageBox.Show("Nieprawid�owy rozmiar sieci!", "B��d", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Nieprawidlowy rozmiar sieci!", "Blad", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
             }
@@ -127,7 +127,7 @@ namespace Neural_network_form
                 //}
             }
 
-            listBoxWyniki.Items.Add("\n--- Wyj�cie sieci po liczbie " + liczbaEpok + " epok ---");
+            listBoxWyniki.Items.Add("\n--- Wyjscie sieci po liczbie " + liczbaEpok + " epok ---");
 
             foreach (var (wejscia, wyjsciaOczekiwane) in daneSieci)
             {
@@ -154,20 +154,20 @@ namespace Neural_network_form
                     tekstOczekiwane += " ";
                 }
 
-                listBoxWyniki.Items.Add("Wej�cia: " + tekstWejscia + ", Wyj�cie sieci: " + tekstWyjscia + " (oczekiwane: " + tekstOczekiwane + ")");
+                listBoxWyniki.Items.Add("Wejscia: " + tekstWejscia + ", Wyjscie sieci: " + tekstWyjscia + " (oczekiwane: " + tekstOczekiwane + ")");
             }
         }
 
         private void GlobalnyWyjatek(object sender, ThreadExceptionEventArgs e)
         {
-            MessageBox.Show("Wyst�pi� nieoczekiwany b��d:\n" + e.Exception.Message, "B��d",
+            MessageBox.Show("Wystapil nieoczekiwany blad:\n" + e.Exception.Message, "Blad",
         MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void GlobalnyWyjatekDomeny(object sender, UnhandledExceptionEventArgs e)
         {
             Exception ex = e.ExceptionObject as Exception;
-            MessageBox.Show("Wyst�pi� krytyczny b��d:\n" + ex?.Message, "B��d",
+            MessageBox.Show("Wystapil krytyczny blad:\n" + ex?.Message, "Blad",
             MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
